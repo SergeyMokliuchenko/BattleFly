@@ -1,5 +1,5 @@
 //
-//  BluePowerUp.swift
+//  YellowShot.swift
 //  BattleFly
 //
 //  Created by Serhii Mokliuchenko on 06.09.2020.
@@ -8,11 +8,11 @@
 
 import SpriteKit
 
-class BluePowerUp: PowerUp {
+class YellowShot: Shot {
     
     init() {
-        let textureAtlas = Assets.shared.bluePowerUpAtlas
-        super.init(textureAtlas: textureAtlas)
+        let texture = Assets.shared.yellowAmmoAtlas
+        super.init(textureAtlas: texture)
     }
     
     required init?(coder aDecoder: NSCoder) {

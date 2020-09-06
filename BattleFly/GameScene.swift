@@ -38,16 +38,30 @@ class GameScene: SKScene {
     
     fileprivate func spawnPowerUp() {
         
-        let powerUp = GreenPowerUp()
-        powerUp.performRotation()
-        powerUp.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
-        self.addChild(powerUp)
+        let spawnAction = SKAction.run { [unowned self] in
+            let randomNumber = Int(arc4random_uniform(2))
+            let powerUp = randomNumber == 1 ? GreenPowerUp() : BluePowerUp()
+            
+            let randomPositionX = CGFloat(arc4random_uniform(UInt32(self.size.width - 30)))
+            let positionY = self.size.height + 100
+            
+            powerUp.position = CGPoint(x: randomPositionX, y: positionY)
+            powerUp.startMovement()
+            self.addChild(powerUp)
+        }
+        
+        let randomTimeSpown = Double(arc4random_uniform(11) + 10)
+        let waitAction = SKAction.wait(forDuration: randomTimeSpown)
+        
+        let spawnActionSequense = SKAction.sequence([spawnAction, waitAction])
+        let repeatAction = SKAction.repeatForever(spawnActionSequense)
+        self.run(repeatAction)
     }
     
     fileprivate func spawnSpiralOfEnemies() {
         
-        let enemyTextureAtlas1 = SKTextureAtlas(named: "Enemy_1")
-        let enemyTextureAtlas2 = SKTextureAtlas(named: "Enemy_2")
+        let enemyTextureAtlas1 = Assets.shared.enemy_1Atlas
+        let enemyTextureAtlas2 = Assets.shared.enemy_2Atlas
         
         SKTextureAtlas.preloadTextureAtlases([enemyTextureAtlas1, enemyTextureAtlas2]) { [unowned self] in
             
@@ -117,9 +131,26 @@ class GameScene: SKScene {
         
         player.checkPosition()
         enumerateChildNodes(withName: "sprite") { (node, _) in
-            if node.position.y < -100 {
+            if node.position.y <= -100 {
                 node.removeFromParent()
             }
         }
+        
+        enumerateChildNodes(withName: "shotSprite") { (node, _) in
+            if node.position.y >= self.size.height + 100 {
+                node.removeFromParent()
+            }
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        playerFire()
+    }
+    
+    fileprivate func playerFire() {
+        let shot = YellowShot()
+        shot.position = self.player.position
+        shot.startMovement()
+        self.addChild(shot)
     }
 }

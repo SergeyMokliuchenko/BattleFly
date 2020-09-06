@@ -1,5 +1,5 @@
 //
-//  PowerUp.swift
+//  Shot.swift
 //  BattleFly
 //
 //  Created by Serhii Mokliuchenko on 06.09.2020.
@@ -8,8 +8,9 @@
 
 import SpriteKit
 
-class PowerUp: SKSpriteNode {
+class Shot: SKSpriteNode {
     
+    fileprivate let screenSize = UIScreen.main.bounds
     fileprivate let initialSize = CGSize(width: 52, height: 52)
     fileprivate let textureAtlas: SKTextureAtlas!
     fileprivate var textureNameBeginWith: String!
@@ -21,11 +22,11 @@ class PowerUp: SKSpriteNode {
         let texture = textureAtlas.textureNamed(textureName)
         textureNameBeginWith = String(textureName.dropLast(6))
         super.init(texture: texture, color: .clear, size: initialSize)
-        self.name = "sprite"
-        self.zPosition = 20
-        self.setScale(0.5)
+        self.name = "shotSprite"
+        self.zPosition = 30
+        self.setScale(0.2)
     }
-     
+        
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -33,18 +34,17 @@ class PowerUp: SKSpriteNode {
     func startMovement() {
         
         performRotation()
-        
-        let moveForward = SKAction.moveTo(y: -100, duration: 5)
+        let moveForward = SKAction.moveTo(y: screenSize.height + 100, duration: 2)
         self.run(moveForward)
     }
-    
+        
     fileprivate func performRotation() {
         
-        for i in 1...15 {
+        for i in 1...32 {
             let number = String(format: "%02d", i)
             animationSpriteArray.append(SKTexture(imageNamed: textureNameBeginWith + number.description))
         }
-        
+            
         SKTexture.preload(animationSpriteArray) { [unowned self] in
             
             let rotation = SKAction.animate(with: self.animationSpriteArray, timePerFrame: 0.05, resize: true, restore: false)
