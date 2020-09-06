@@ -19,6 +19,8 @@
 		1AF0012A250399F40073F7D9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AF00128250399F40073F7D9 /* Main.storyboard */; };
 		1AF0012C250399F60073F7D9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0012B250399F60073F7D9 /* Assets.xcassets */; };
 		1AF0012F250399F60073F7D9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AF0012D250399F60073F7D9 /* LaunchScreen.storyboard */; };
+		1AF3315F2504C0F6009A575E /* PowerUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF3315E2504C0F6009A575E /* PowerUp.swift */; };
+		1AF331612504C1DB009A575E /* GreenPowerUp.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 1AF331602504C1DB009A575E /* GreenPowerUp.atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		1AF0012B250399F60073F7D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1AF0012E250399F60073F7D9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AF00130250399F60073F7D9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1AF3315E2504C0F6009A575E /* PowerUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PowerUp.swift; sourceTree = "<group>"; };
+		1AF331602504C1DB009A575E /* GreenPowerUp.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = GreenPowerUp.atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,11 +80,13 @@
 				1AF0012D250399F60073F7D9 /* LaunchScreen.storyboard */,
 				1AF00130250399F60073F7D9 /* Info.plist */,
 				1AED9D4A2503C9F000EDB47A /* PlayerPlane.atlas */,
+				1AF331602504C1DB009A575E /* GreenPowerUp.atlas */,
 				1AED9D4225039EC300EDB47A /* Background.swift */,
 				1AE66CE22503FB08005A20F0 /* GameBackgroundSpriteable.swift */,
 				1AED9D442503A1D400EDB47A /* Island.swift */,
 				1AED9D462503ADA500EDB47A /* Cloud.swift */,
 				1AED9D482503C7DC00EDB47A /* PlayerPlane.swift */,
+				1AF3315E2504C0F6009A575E /* PowerUp.swift */,
 			);
 			path = BattleFly;
 			sourceTree = "<group>";
@@ -144,6 +150,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AF0012A250399F40073F7D9 /* Main.storyboard in Resources */,
+				1AF331612504C1DB009A575E /* GreenPowerUp.atlas in Resources */,
 				1AED9D4B2503C9F000EDB47A /* PlayerPlane.atlas in Resources */,
 				1AF0012C250399F60073F7D9 /* Assets.xcassets in Resources */,
 				1AF0012F250399F60073F7D9 /* LaunchScreen.storyboard in Resources */,
@@ -164,6 +171,7 @@
 				1AF0011F250399F40073F7D9 /* AppDelegate.swift in Sources */,
 				1AED9D452503A1D400EDB47A /* Island.swift in Sources */,
 				1AE66CE32503FB08005A20F0 /* GameBackgroundSpriteable.swift in Sources */,
+				1AF3315F2504C0F6009A575E /* PowerUp.swift in Sources */,
 				1AED9D4325039EC300EDB47A /* Background.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
