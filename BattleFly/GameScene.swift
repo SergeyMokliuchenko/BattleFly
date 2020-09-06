@@ -19,11 +19,56 @@ class GameScene: SKScene {
         spawnClouds()
         spawnIslands()
         player.performFly()
+        //spawnEnemies(count: 5)
+        spawnEnemies()
+        spawnPowerUp()
+    }
+    
+    fileprivate func spawnEnemies() {
+        
+        let waitAction = SKAction.wait(forDuration: 3.0)
+        let spawnSpiralAction = SKAction.run { [unowned self] in
+            self.spawnSpiralOfEnemies()
+        }
+        
+        let spawnAction = SKAction.sequence([waitAction, spawnSpiralAction])
+        let repeatAction = SKAction.repeatForever(spawnAction)
+        self.run(repeatAction)
+    }
+    
+    fileprivate func spawnPowerUp() {
         
         let powerUp = PowerUp()
         powerUp.performRotation()
         powerUp.position = CGPoint(x: self.size.width / 2, y: self.size.height / 2)
         self.addChild(powerUp)
+    }
+    
+    fileprivate func spawnSpiralOfEnemies() {
+        
+        let enemyTextureAtlas1 = SKTextureAtlas(named: "Enemy_1")
+        let enemyTextureAtlas2 = SKTextureAtlas(named: "Enemy_2")
+        
+        SKTextureAtlas.preloadTextureAtlases([enemyTextureAtlas1, enemyTextureAtlas2]) { [unowned self] in
+            
+            let randomNumber = Int(arc4random_uniform(2))
+            let arrayOfAtlases = [enemyTextureAtlas1, enemyTextureAtlas2]
+            let textureAtlas = arrayOfAtlases[randomNumber]
+            let waitAction = SKAction.wait(forDuration: 1.0)
+            
+            let spawnEnemy = SKAction.run { [unowned self] in
+                let textureNames = textureAtlas.textureNames.sorted()
+                let texture = textureAtlas.textureNamed(textureNames[12])
+                let enemy = Enemy(enemyTexture: texture)
+                enemy.position = CGPoint(x: self.size.width / 2, y: self.size.height + 150 )
+                self.addChild(enemy)
+                enemy.flySpiral()
+            }
+            
+            let spawnAction = SKAction.sequence([waitAction, spawnEnemy])
+            let repeatAction = SKAction.repeat(spawnAction, count: 3)
+            self.run(repeatAction)
+        }
     }
     
     fileprivate func configureStartScene() {
@@ -34,16 +79,6 @@ class GameScene: SKScene {
         self.addChild(background)
         
         let screen = UIScreen.main.bounds
-        
-//        let island1 = Island.populate(at: CGPoint(x: 200, y: 200))
-//        self.addChild(island1)
-//        let island2 = Island.populate()
-//        self.addChild(island2)
-//        let island3 = Island.populate()
-//        self.addChild(island3)
-//
-//        let cloud = Cloud.populate()
-//        self.addChild(cloud)
 
         player = PlayerPlane.populate(at: CGPoint(x: screen.size.width / 2, y: 100))
         self.addChild(player)
@@ -81,8 +116,8 @@ class GameScene: SKScene {
         super.didSimulatePhysics()
         
         player.checkPosition()
-        enumerateChildNodes(withName: "backgroundSprite") { (node, _) in
-            if node.position.y < -199 {
+        enumerateChildNodes(withName: "sprite") { (node, _) in
+            if node.position.y < -100 {
                 node.removeFromParent()
             }
         }

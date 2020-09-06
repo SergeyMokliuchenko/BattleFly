@@ -28,7 +28,7 @@ class PlayerPlane: SKSpriteNode {
         
         let playerPlaneTexture = SKTexture(imageNamed: "airplane_3ver2_13")
         let playerPlane = PlayerPlane(texture: playerPlaneTexture)
-        playerPlane.setScale(0.4)
+        playerPlane.setScale(0.3)
         playerPlane.position = point
         playerPlane.zPosition = 20
         
