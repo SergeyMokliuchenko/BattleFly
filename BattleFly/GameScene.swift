@@ -15,11 +15,13 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         
+        //physicsWorld.contactDelegate = self
+        physicsWorld.gravity = CGVector.zero
+        
         configureStartScene()
         spawnClouds()
         spawnIslands()
         player.performFly()
-        //spawnEnemies(count: 5)
         spawnEnemies()
         spawnPowerUp()
     }
@@ -152,5 +154,23 @@ class GameScene: SKScene {
         shot.position = self.player.position
         shot.startMovement()
         self.addChild(shot)
+    }
+}
+
+extension GameScene: SKPhysicsContactDelegate {
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        let contactCategory: BitMaskCategory = [contact.bodyA.category, contact.bodyB.category]
+        switch contactCategory {
+        case [.player, .enemy]: print("player vs enemy")
+        case [.player, .poverUp]: print("player vs poverUp")
+        case[.enemy, .shot]: print("enemy vs shot")
+        default: preconditionFailure("Unable to detect collision category")
+        }
+    }
+    
+    func didEnd(_ contact: SKPhysicsContact) {
+        
     }
 }
