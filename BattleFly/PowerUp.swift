@@ -10,16 +10,20 @@ import SpriteKit
 
 class PowerUp: SKSpriteNode {
     
-    private let initialSize = CGSize(width: 52, height: 52)
-    private let textureAtlas = SKTextureAtlas(named: "GreenPowerUp")
+    fileprivate let initialSize = CGSize(width: 52, height: 52)
+    fileprivate let textureAtlas: SKTextureAtlas!
+    fileprivate var textureNameBeginWith: String!
+    fileprivate var animationSpriteArray: [SKTexture] = []
     
-    private var animationSpriteArray: [SKTexture] = []
-    
-    init() {
-        let greenTexture = textureAtlas.textureNamed("missle_green_01")
-        super.init(texture: greenTexture, color: .clear, size: initialSize)
+    init(textureAtlas: SKTextureAtlas) {
+        self.textureAtlas = textureAtlas
+        let textureName = textureAtlas.textureNames.sorted()[0]
+        let texture = textureAtlas.textureNamed(textureName)
+        textureNameBeginWith = String(textureName.dropLast(6))
+        super.init(texture: texture, color: .clear, size: initialSize)
         self.name = "powerUp"
         self.zPosition = 20
+        self.setScale(0.5)
     }
      
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +34,7 @@ class PowerUp: SKSpriteNode {
         
         for i in 1...15 {
             let number = String(format: "%02d", i)
-            animationSpriteArray.append(SKTexture(imageNamed: "missle_green_\(number)"))
+            animationSpriteArray.append(SKTexture(imageNamed: textureNameBeginWith + number.description))
         }
         
         SKTexture.preload(animationSpriteArray) { [unowned self] in
